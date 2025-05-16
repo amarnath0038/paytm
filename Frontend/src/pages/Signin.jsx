@@ -3,6 +3,7 @@ import { InputBox } from "../components/InputBox";
 import { Button } from "../components/Button";
 import { BottomLink } from "../components/BottomLink";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signin = () => {
@@ -12,6 +13,7 @@ const Signin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignin = async () => {
     setLoading(true);
@@ -31,6 +33,7 @@ const Signin = () => {
       if (response.status === 200 && response.data.token) {
         localStorage.setItem("token", response.data.token);
         setSuccess(true);
+        setTimeout(() => { navigate("/dashboard"); }, 1000);
       }
 
     } catch (err) {
